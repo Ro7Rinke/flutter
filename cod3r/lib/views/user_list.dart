@@ -1,20 +1,31 @@
-import 'package:cod3r/data/dummy_users.dart';
+import 'package:cod3r/components/user_tile.dart';
+import 'package:cod3r/models/user.dart';
+import 'package:cod3r/provider/users.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UserList extends StatelessWidget{
   @override
   Widget build (BuildContext context){
-    const users = {...DUMMY_USERS};
+    final UsersProvider users = Provider.of(context);
     
     return Scaffold(
       appBar: AppBar(
         title: Text('User List'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add), 
+            onPressed: () {
+              
+            },
+          )
+        ],
       ),
       body: ListView.builder(
-        itemCount: users.length,
+        itemCount: users.count,
         itemBuilder: (context, index) => 
-          Text(users.values.elementAt(index).name)
+          UserTile(users.all.elementAt(index))
       )
     );
   }

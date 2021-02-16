@@ -17,7 +17,7 @@ const DUMMY_USERS = {
     id: '3',
     name: 'Clara',
     email: 'clara@email.com',
-    avatarUrl: 'https://cdn.pixabay.com/photo/2014/04/03/10/32/user-310807__340.png'
+    avatarUrl: ''
   ),
   '4': const User(
     id: '4',
