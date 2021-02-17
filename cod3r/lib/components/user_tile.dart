@@ -1,13 +1,46 @@
+import 'dart:js';
+
 import 'package:cod3r/models/user.dart';
+import 'package:cod3r/provider/users.dart';
 import 'package:cod3r/routes/app_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UserTile extends StatelessWidget{
   
   final User user;
 
   const UserTile(this.user);
+
+  void _deleteUser(BuildContext context, String id){
+
+    Provider.of<UsersProvider>(context, listen: false).remove(user.id);
+  }
+
+  void _dialogDeleteUser(BuildContext context, User user){
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Delete user'),
+        content: Text('You really want to delete ' + user.name),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Yes'),
+            onPressed: (){
+              _deleteUser(context, user.id);
+            }
+          ),
+          FlatButton(
+            child: Text('No'),
+            onPressed: (){
+              Navigator.of(context).pop();
+            }
+          )
+        ],
+      )
+      );
+  }
   
   @override
   Widget build(BuildContext context){
@@ -35,7 +68,9 @@ class UserTile extends StatelessWidget{
             IconButton(
               icon: Icon(Icons.delete),
               color: Colors.red, 
-              onPressed: (){}
+              onPressed: (){
+                _dialogDeleteUser(context, user);
+              }
             ),
           ],
         ),
