@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:cod3r/models/user.dart';
 import 'package:cod3r/provider/users.dart';
 import 'package:cod3r/routes/app_routes.dart';
@@ -27,19 +25,20 @@ class UserTile extends StatelessWidget{
         actions: <Widget>[
           FlatButton(
             child: Text('Yes'),
-            onPressed: (){
-              _deleteUser(context, user.id);
-            }
+            onPressed: () =>
+              Navigator.of(context).pop(true)
           ),
           FlatButton(
             child: Text('No'),
-            onPressed: (){
-              Navigator.of(context).pop();
-            }
+            onPressed: () =>
+              Navigator.of(context).pop(false)
           )
         ],
       )
-      );
+    ).then((confirmed) {
+      if(confirmed)
+        _deleteUser(context, user.id);
+    });
   }
   
   @override
